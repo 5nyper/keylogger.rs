@@ -1,5 +1,4 @@
 extern crate winapi;
-extern crate winmm;
 extern crate user32;
 extern crate kernel32;
 use std::fs::{File, OpenOptions};
