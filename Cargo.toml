@@ -1,0 +1,10 @@
+[package]
+name = "win"
+version = "0.1.0"
+authors = ["Vikaton <root@stackin.money>"]
+
+[dependencies]
+winapi = "*"
+winmm-sys = "*"
+user32-sys = "*"
+kernel32-sys = "*"
