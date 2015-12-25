@@ -34,6 +34,7 @@ fn main() {
     	}
     }
     file.flush().unwrap();
+    unsafe { kernel32::SleepEx(1,1); }
 	}
 }
 
